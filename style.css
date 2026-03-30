@@ -92,9 +92,9 @@ body {
 .wrapper {
   position:  relative;
   z-index:   1;
-  max-width: 920px;
+  max-width: clamp(360px, 95vw, 1000px);
   margin:    0 auto;
-  padding:   0 20px 80px;
+  padding:   clamp(0, 4vw, 24px) clamp(14px, 4vw, 28px) clamp(60px, 12vw, 100px);
 }
 
 /* ── 5. HEADER ──────────────────────────────────────────────── */
@@ -102,7 +102,7 @@ header {
   display:         flex;
   align-items:     center;
   justify-content: space-between;
-  padding:         28px 0 22px;
+  padding:         clamp(20px, 5vw, 32px) 0 clamp(16px, 4vw, 24px);
   border-bottom:   1px solid var(--border);
 }
 
@@ -113,17 +113,17 @@ header {
 }
 
 .logo-icon {
-  width:  55px;
-  height: 55px;
-  border-radius: 10px;
+  width:  clamp(32px, 8vw, 48px);
+  height: clamp(32px, 8vw, 48px);
+  border-radius: clamp(6px, 2vw, 12px);
   object-fit: contain;
 }
 
 .logo-text {
   font-family:    var(--font-display);
-  font-size:      clamp(20px, 4vw, 26px);
+  font-size:      clamp(18px, 6vw, 32px);
   font-weight:    800;
-  letter-spacing: -0.5px;
+  letter-spacing: clamp(-0.02em, -0.01em, -0.5px);
   color:          var(--text);
 }
 .logo-accent { color: var(--blue); }
@@ -294,13 +294,13 @@ body.phase-long .status-phase-pill  { background: rgba(245,158,11,0.12); border-
   background:    var(--surface);
   border:        1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding:       24px;
+  padding:       clamp(16px, 5vw, 28px);
 }
 
 .form-grid {
   display:               grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap:                   18px;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(140px, 22vw, 180px), 1fr));
+  gap:                   clamp(12px, 4vw, 20px);
   align-items:           end;
 }
 
@@ -392,19 +392,20 @@ body.phase-long .status-phase-pill  { background: rgba(245,158,11,0.12); border-
   display:        inline-flex;
   align-items:    center;
   justify-content: center;
-  gap:            8px;
+  gap:            clamp(6px, 1.5vw, 10px);
   width:          100%;
-  padding:        12px 20px;
+  min-height:     clamp(44px, 10vw, 56px);
+  padding:        clamp(10px, 3vw, 16px) clamp(16px, 4vw, 28px);
   background:     var(--blue);
   color:          #0F172A;
   border:         none;
-  border-radius:  var(--radius-sm);
+  border-radius:  clamp(8px, 2vw, var(--radius-sm));
   font-family:    var(--font-body);
-  font-size:      13px;
+  font-size:      clamp(13px, 3.5vw, 16px);
   font-weight:    600;
   cursor:         pointer;
   transition:     var(--t);
-  letter-spacing: 0.2px;
+  letter-spacing: clamp(0.1px, 0.3vw, 0.2px);
 }
 .btn-add:hover {
   background:  #7DD3FC;
@@ -606,21 +607,22 @@ body.phase-long .status-phase-pill  { background: rgba(245,158,11,0.12); border-
   display:         flex;
   align-items:     center;
   justify-content: center;
-  gap:             10px;
+  gap:             clamp(8px, 2vw, 12px);
   width:           100%;
-  margin-top:      22px;
-  padding:         16px 24px;
+  margin-top:      clamp(16px, 4vw, 28px);
+  min-height:      clamp(48px, 12vw, 64px);
+  padding:         clamp(14px, 4vw, 20px) clamp(20px, 5vw, 32px);
   background:      linear-gradient(135deg, var(--blue), #0EA5E9);
   color:           #0F172A;
   border:          none;
-  border-radius:   var(--radius);
+  border-radius:   clamp(12px, 3vw, var(--radius));
   font-family:     var(--font-display);
-  font-size:       17px;
+  font-size:       clamp(16px, 4.5vw, 20px);
   font-weight:     700;
-  letter-spacing:  0.5px;
+  letter-spacing:  clamp(0.2px, 0.5vw, 0.5px);
   cursor:          pointer;
   transition:      var(--t);
-  box-shadow:      0 4px 20px rgba(56,189,248,0.2);
+  box-shadow:      0 clamp(4px, 1vw, 8px) clamp(12px, 4vw, 32px) rgba(56,189,248,0.2);
 }
 .btn-start:hover:not(:disabled) {
   background:  linear-gradient(135deg, #7DD3FC, #38BDF8);
@@ -682,9 +684,9 @@ body.phase-long .status-phase-pill  { background: rgba(245,158,11,0.12); border-
 /* Ring */
 .hero-ring-wrap {
   position: relative;
-  width:    220px;
-  height:   220px;
-  margin:   0 auto 24px;
+  width:    clamp(160px, 42vw, 260px);
+  height:   clamp(160px, 42vw, 260px);
+  margin:   0 auto clamp(16px, 5vw, 32px);
 }
 
 .hero-ring-svg  { transform: rotate(-90deg); width: 100%; height: 100%; }
@@ -710,13 +712,13 @@ body.phase-long .status-phase-pill  { background: rgba(245,158,11,0.12); border-
   align-items:     center;
   justify-content: center;
   font-family:     var(--font-display);
-  font-size:       clamp(52px, 14vw, 68px);
+  font-size:       clamp(44px, 16vw, 80px);
   font-weight:     800;
-  letter-spacing:  -1px;
+  letter-spacing:  clamp(-0.02em, -0.01em, -1px);
   line-height:     1;
   color:           var(--phase-col);
   transition:      color 0.4s;
-  text-shadow:     0 0 30px rgba(56,189,248,0.25);
+  text-shadow:     0 0 clamp(16px, 6vw, 40px) rgba(56,189,248,0.25);
 }
 
 .hero-subtext {
@@ -1052,23 +1054,29 @@ footer {
 .footer-dot { color: var(--blue); }
 
 /* ── 17. RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .progress-row { grid-template-columns: 1fr; }
+  .hero-controls { flex-direction: column; gap: clamp(8px, 4vw, 12px); }
+  .ctrl-btn { width: 100%; justify-content: center; min-height: 48px; }
+  .preset-chips { flex-direction: column; gap: 8px; }
+  .preset-chip { width: 100%; justify-content: center; }
+}
+
 @media (max-width: 600px) {
   .wrapper { padding: 0 14px 60px; }
-  header   { padding: 20px 0 16px; }
-  .form-card { padding: 16px; }
-  .form-grid { gap: 14px; }
-  .hero-card { padding: 24px 16px 20px; }
-  .hero-ring-wrap { width: 190px; height: 190px; }
-  .hero-controls { gap: 8px; }
-  .ctrl-btn { padding: 9px 14px; font-size: 12px; }
-  .complete-inner { padding: 28px 20px; }
-  .section-header { flex-direction: column; align-items: flex-start; }
+  header { padding: clamp(16px, 6vw, 24px) 0; }
+  .form-card { padding: clamp(12px, 4vw, 20px); }
+  .form-grid { gap: clamp(12px, 3vw, 16px); }
+  .hero-card { padding: clamp(20px, 6vw, 32px) clamp(12px, 4vw, 24px) clamp(20px, 5vw, 28px); }
+  .hero-ring-wrap { width: clamp(160px, 45vw, 200px); height: clamp(160px, 45vw, 200px); }
+  .hero-controls { gap: clamp(6px, 3vw, 10px); }
+  .ctrl-btn { padding: clamp(8px, 3vw, 12px) clamp(12px, 4vw, 20px); font-size: clamp(12px, 4vw, 14px); }
+  .complete-inner { padding: clamp(24px, 8vw, 36px); }
+  .section-header { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
 
 @media (max-width: 380px) {
-  .hero-ring-wrap { width: 160px; height: 160px; }
-  .preset-chips { gap: 6px; }
-  .preset-chip { padding: 6px 11px; font-size: 11px; }
-  .ctrl-btn span { display: none; }
-  .ctrl-btn { padding: 10px 14px; }
+  .hero-ring-wrap { width: clamp(140px, 40vw, 160px); height: clamp(140px, 40vw, 160px); }
+  .preset-chips { gap: clamp(6px, 2vw, 8px); }
+  .preset-chip { padding: clamp(8px, 3vw, 12px) clamp(12px, 4vw, 16px); font-size: clamp(11px, 3.5vw, 13px); }
 }
