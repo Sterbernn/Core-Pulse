@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CorePulse — Smart Workout Timer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Ambient background orbs -->
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+
+  <div class="wrapper">
+
+    <!-- ══════════════════════════════════════════
+         HEADER
+    ══════════════════════════════════════════ -->
+    <header>
+      <div class="logo">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M6.5 6.5h11M6.5 17.5h11M4 12h16M2 9.5h2M2 14.5h2M20 9.5h2M20 14.5h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+<span class="logo-text">Core<span class="logo-accent">Pulse</span></span>
+      </div>
+      <div class="header-right">
+        <div class="mode-badge idle" id="modeBadge">
+          <span class="badge-dot"></span>
+          <span class="badge-text">IDLE</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ══════════════════════════════════════════
+         LIVE STATUS BAR (active workout only)
+    ══════════════════════════════════════════ -->
+    <div class="status-bar" id="statusBar">
+      <div class="status-left">
+        <div class="status-phase-pill" id="statusPhase">WORKING</div>
+        <div class="status-exercise" id="statusExerciseName">—</div>
+      </div>
+      <div class="status-right">
+        <span class="status-detail" id="statusSetDetail">Set 1 of 4</span>
+        <span class="status-sep">·</span>
+        <span class="status-detail" id="statusExerciseDetail">Exercise 1 of 1</span>
+      </div>
+      <div class="status-progress-track">
+        <div class="status-progress-fill" id="statusProgressFill"></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SETUP PANEL
+    ══════════════════════════════════════════ -->
+    <div id="setupPanel">
+
+      <!-- Quick Presets -->
+      <div class="section-header" style="margin-top:32px">
+        <span class="section-label" id="presetLabel">QUICK START</span>
+        <div class="preset-chips">
+          <button class="preset-chip" data-preset="beginner"     onclick="applyPreset('beginner')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Beginner
+          </button>
+          <button class="preset-chip" data-preset="intermediate" onclick="applyPreset('intermediate')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Intermediate
+          </button>
+          <button class="preset-chip" data-preset="advanced"     onclick="applyPreset('advanced')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            Advanced
+          </button>
+        </div>
+      </div>
+
+      <!-- Add Exercise Form -->
+      <div class="section-label" style="margin-top:28px;margin-bottom:12px">BUILD YOUR WORKOUT</div>
+      <div class="form-card">
+        <div class="form-grid">
+
+          <div class="form-group col-span-2">
+            <label class="field-label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2"/></svg>
+              Exercise
+            </label>
+            <div class="select-wrap">
+              <select id="exerciseSelect">
+                <option value="">— Choose exercise —</option>
+                <option>Push-ups</option>
+                <option>Squats</option>
+                <option>Plank</option>
+                <option>Deadlift</option>
+                <option>Bench Press</option>
+                <option>Pull-ups</option>
+                <option>Lunges</option>
+                <option>Burpees</option>
+                <option>Dumbbell Curl</option>
+                <option>Shoulder Press</option>
+                <option>Mountain Climbers</option>
+                <option>Box Jumps</option>
+                <option>Tricep Dips</option>
+                <option>Jumping Jacks</option>
+                <option>Kettlebell Swing</option>
+                <option>--- CUSTOM ---</option>
+              </select>
+              <svg class="select-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <input type="text" id="exerciseName" class="text-input" placeholder="Type custom exercise name..." style="display:none;margin-top:8px" />
+          </div>
+
+          <div class="form-group">
+            <label class="field-label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Sets
+            </label>
+            <input type="number" id="exSets" value="3" min="1" max="20" class="num-input" />
+          </div>
+
+          <div class="form-group">
+            <label class="field-label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Work (sec)
+            </label>
+            <input type="number" id="exWork" value="45" min="5" max="3600" class="num-input" />
+          </div>
+
+          <div class="form-group">
+            <label class="field-label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Short Rest (sec)
+              <span class="field-hint">between sets</span>
+            </label>
+            <input type="number" id="exShortRest" value="30" min="5" max="600" class="num-input" />
+          </div>
+
+          <div class="form-group">
+            <label class="field-label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" stroke-width="2"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Long Rest (sec)
+              <span class="field-hint">after exercise</span>
+            </label>
+            <input type="number" id="exLongRest" value="90" min="10" max="600" class="num-input" />
+          </div>
+
+          <div class="form-group col-span-2 form-group--add">
+            <button class="btn-add" onclick="addExerciseToQueue()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Add to Queue
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Queue Header -->
+      <div class="queue-header" id="queueHeader" style="display:none">
+        <div class="queue-header-left">
+          <span class="queue-count-badge" id="queueCount">0</span>
+          <span class="queue-header-label">exercises queued</span>
+          <span class="queue-time-pill" id="queueTotalTime"></span>
+        </div>
+        <button class="btn-clear" id="btnClearQueue" onclick="clearQueue()" style="display:none">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6M10 11v6M14 11v6M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Clear All
+        </button>
+      </div>
+
+      <!-- Empty state -->
+      <div class="queue-empty" id="queueEmpty">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M6.5 6.5h11M6.5 17.5h11M4 12h16M2 9.5h2M2 14.5h2M20 9.5h2M20 14.5h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <p>No exercises yet</p>
+        <span>Pick a preset or add exercises above to build your workout</span>
+      </div>
+
+      <!-- Queue scroll area -->
+      <div class="queue-scroll-wrap" id="queueScrollWrap" style="display:none">
+        <div class="queue-list" id="queueList"></div>
+      </div>
+
+      <!-- Start Button -->
+      <button class="btn-start" id="btnStartWorkout" onclick="startWorkout()" disabled>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg>
+        Start Workout
+      </button>
+
+    </div><!-- /setupPanel -->
+
+    <!-- ══════════════════════════════════════════
+         ACTIVE WORKOUT PANEL
+    ══════════════════════════════════════════ -->
+    <div id="activePanel" style="display:none">
+
+      <!-- Hero Timer Card -->
+      <div class="hero-card" id="heroCard">
+
+        <div class="hero-phase-label" id="heroPhaseLabel">WORK</div>
+
+        <div class="hero-ring-wrap">
+          <svg viewBox="0 0 220 220" class="hero-ring-svg">
+            <circle class="ring-track" cx="110" cy="110" r="96"/>
+            <circle class="ring-fill"  id="heroRing" cx="110" cy="110" r="96"
+              stroke-dasharray="603.19" stroke-dashoffset="0"/>
+          </svg>
+          <div class="hero-timer" id="heroDisplay">00:00</div>
+          <div class="hero-subtext" id="heroSubtext">GET READY</div>
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="hero-controls">
+          <button class="ctrl-btn ctrl-pause" id="heroPauseBtn" onclick="togglePause()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" id="pauseIcon"><rect x="6" y="4" width="4" height="16" rx="1" fill="currentColor"/><rect x="14" y="4" width="4" height="16" rx="1" fill="currentColor"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" id="resumeIcon" style="display:none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg>
+            <span id="pauseBtnText">Pause</span>
+          </button>
+          <button class="ctrl-btn ctrl-skip" onclick="skipPhase()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><polygon points="5,4 15,12 5,20" fill="currentColor"/><rect x="16" y="4" width="3" height="16" rx="1" fill="currentColor"/></svg>
+            Skip
+          </button>
+          <button class="ctrl-btn ctrl-stop" onclick="stopWorkout()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" fill="currentColor"/></svg>
+            Stop
+          </button>
+        </div>
+
+      </div><!-- /hero-card -->
+
+      <!-- Progress Row -->
+      <div class="progress-row">
+
+        <div class="progress-card">
+          <div class="prog-label">Exercise</div>
+          <div class="prog-fraction">
+            <span class="prog-cur" id="exCurDisplay">1</span>
+            <span class="prog-sep">/</span>
+            <span class="prog-tot" id="exTotDisplay">1</span>
+          </div>
+          <div class="prog-name" id="exNameDisplay">—</div>
+          <div class="prog-bar-track">
+            <div class="prog-bar-fill" id="exProgressFill"></div>
+          </div>
+        </div>
+
+        <div class="progress-card">
+          <div class="prog-label">Sets</div>
+          <div class="prog-fraction">
+            <span class="prog-cur" id="setCurDisplay">1</span>
+            <span class="prog-sep">/</span>
+            <span class="prog-tot" id="setTotDisplay">3</span>
+          </div>
+          <div class="prog-name" id="setPhaseDisplay">WORKING</div>
+          <div class="dot-grid" id="activeDotGrid"></div>
+        </div>
+
+      </div>
+
+      <!-- Up Next -->
+      <div class="upcoming-section">
+        <div class="section-label" style="margin-bottom:12px">UP NEXT</div>
+        <div class="upcoming-list" id="upcomingList"></div>
+      </div>
+
+    </div><!-- /activePanel -->
+
+    <footer>
+      <span>CorePulse</span>
+      <span class="footer-dot">·</span>
+      <span>Stay Consistent. Stay Strong.</span>
+    </footer>
+
+  </div><!-- /wrapper -->
+
+  <!-- ══════════════════════════════════════════
+       WORKOUT COMPLETE OVERLAY
+  ══════════════════════════════════════════ -->
+  <div id="workout-complete">
+    <div class="complete-inner">
+      <div class="complete-icon">🏆</div>
+      <div class="complete-title">Crushed It!</div>
+      <div class="complete-sub" id="completeSubText">Workout Complete</div>
+      <div class="complete-stats" id="completeStats"></div>
+      <button class="btn-again" onclick="returnToSetup()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M1 4v6h6M23 20v-6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        New Workout
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
